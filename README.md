@@ -37,12 +37,13 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
 
 ## Content
 
+- [Introduction](#csv-to-firestore)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-   - [Interactive Mode](#interactive-mode)
-   - [Class](#class)
-- [Output]()
+  - [Interactive Mode](#interactive-mode)
+  - [NPM Package/Class](#npm-package/class)
+- [Output](#output)
 
 ## Requirements
 
@@ -89,6 +90,8 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
      - `FIREBASE_PRIVATE_KEY`
         - The `private_key` entry from the service account JSON file
         - Take note to make sure that the value starts and ends with a double-quote
+4. (OPTIONAL) **csv-to-firestore** is also available as an npm package on https://www.npmjs.com/package/csv-firestore.  
+   - `npm install --save csv-firebase`
 
 
 ## Usage
@@ -110,14 +113,18 @@ Run `npm start` to start the interactive session. Answer the questions appropria
 Wait for the data upload to finish.
 
 
-### Class
+### NPM Package/Class
 
-Require the **CsvToFirestore** class from `./lib/classes/csvtofirestore` into a script. See example usage below:
+Require **csv-firestore** as an npm package: `require('csv-firestore')` if it's installed using **npm**, or  
+require the **CsvToFirestore** class from `./lib/classes/csvtofirestore` into a script if it's installed outside npm. See example usage below:
 
 ```
 // examples/example.js
 const path = require('path')
 const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
+
+// Require as an npm package if installed using npm
+// const CsvToFireStore = require('csv-firestore')
 
 const main = async () => {
   const handler = new CsvToFireStore(path.resolve(__dirname, 'example.csv'))
@@ -140,6 +147,8 @@ const main = async () => {
 
 main()
 ```
+
+Require as an npm package, if installed using `npm 
 
 ## Output
 
