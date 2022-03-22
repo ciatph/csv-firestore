@@ -146,4 +146,4 @@ main()
 The uploaded data will be available on Firestore. It will be accessible using various [Firebase clients](https://firebase.google.com/docs/firestore/manage-data/add-data) for web, (JS) Python, PHP, Go, and many more.
 
 It can also be accessed from Firestore's REST API following the pattern below if public reads are allowed on the Firestore Rules. 
-`https://firestore.googleapis.com/v1/projects/<PROJECT_ID_HERE>/databases/(default)/documents/<COLLECTION_NAME>`
+`https://firestore.googleapis.com/v1/projects/<PROJECT_ID_HERE>/databases/(default)/documents/<COLLECTION_NAME>?&key=<FIREBASE_CONFIG_API_KEY>`
