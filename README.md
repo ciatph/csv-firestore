@@ -1,6 +1,6 @@
 ## csv-firestore
 
-csv-firestore, a NodeJS script meant to run in a privileged environment, will upload the contents of a CSV file into a Firestore collection. The uploaded data will be accessible to Firebase web clients or via the Firestore REST API, following the project's Firestore Rules definition.
+**csv-firestore**, a NodeJS script meant to run in a privileged environment, will upload the contents of a CSV file into a Firestore collection. The uploaded data will be accessible to Firebase web clients or via the Firestore REST API, following the project's Firestore Rules definition.
 
 For example, a CSV file containing the items:
 
