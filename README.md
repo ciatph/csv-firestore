@@ -1,6 +1,6 @@
 ## csv-firestore
 
-**csv-firestore**, a NodeJS script meant to run in a privileged environment, will upload the contents of a CSV file into a Firestore collection. The uploaded data will be accessible to Firebase web clients or via the Firestore REST API, following the project's Firestore Rules definition.
+csv-firestore, a NodeJS script meant to run in a privileged environment, will upload the contents of a CSV file into a Firestore collection. The uploaded data will be accessible to Firebase web clients or via the Firestore REST API, following the project's Firestore Rules definition.
 
 For example, a CSV file containing the items:
 
@@ -76,11 +76,13 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
 
 ## Installation
 
-1. Clone this repository.  
+1. Clone this repository, or install using npm (see step #2).  
 `git clone https://github.com/ciatph/csv-firestore.git`
-2. Install dependencies.  
+2. **csv-firestore** is also available as an npm package on https://www.npmjs.com/package/csv-firestore. Install using:  
+   - `npm install --save csv-firebase`
+3. Install dependencies.  
 `npm install`
-3. Set up the environment variables.
+4. Set up the environment variables.
    - Create a `.env` file with reference to the `.env.example` file.
    - Encode your own Firebase project settings on the following variables:
      -  `FIREBASE_SERVICE_ACC`
@@ -90,15 +92,16 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
      - `FIREBASE_PRIVATE_KEY`
         - The `private_key` entry from the service account JSON file
         - Take note to make sure that the value starts and ends with a double-quote
-4. (OPTIONAL) **csv-firestore** is also available as an npm package on https://www.npmjs.com/package/csv-firestore.  
-   - `npm install --save csv-firebase`
 
 
 ## Usage
 
 ### Interactive Mode
 
-Run `npm start` to start the interactive session. Answer the questions appropriately when prompted:
+1. Run `npm start` to start the interactive session.
+2. Run `node .\node_modules\csv-firestore\src\index.js` if installed via npm.
+
+Answer the questions appropriately when prompted:
 
 - **Enter the full CSV file path:** 
    - *(Enter the full file path to the input CSV file i.e., D:/MyFiles/users.csv)*
@@ -115,8 +118,8 @@ Wait for the data upload to finish.
 
 ### NPM Package/Class
 
-Require **csv-firestore** as an npm package: `require('csv-firestore')` if it's installed using **npm**, or  
-require the **CsvToFirestore** class from `./lib/classes/csvtofirestore` into a script if it's installed outside npm. See example usage below:
+- Require **csv-firestore** as an npm package: `require('csv-firestore')` if it's installed using **npm**, or  
+- Require the **CsvToFirestore** class from `./lib/classes/csvtofirestore` into a script if it's installed outside npm. See example usage below:
 
 ```
 // examples/example.js
@@ -148,7 +151,6 @@ const main = async () => {
 main()
 ```
 
-Require as an npm package, if installed using `npm 
 
 ## Output
 
