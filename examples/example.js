@@ -1,5 +1,5 @@
 const path = require('path')
-const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
+const CsvToFireStore = require('../index')
 
 const main = async () => {
   const handler = new CsvToFireStore(path.resolve(__dirname, 'example.csv'))

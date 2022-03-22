@@ -1,6 +1,6 @@
-## csv-to-firestore
+## csv-firestore
 
-**csv-to-firestore**, a NodeJS script meant to run in a privileged environment, will upload the contents of a CSV file into a Firestore collection. The uploaded data will be accessible to Firebase web clients or via the Firestore REST API, following the project's Firestore Rules definition.
+**csv-firestore**, a NodeJS script meant to run in a privileged environment, will upload the contents of a CSV file into a Firestore collection. The uploaded data will be accessible to Firebase web clients or via the Firestore REST API, following the project's Firestore Rules definition.
 
 For example, a CSV file containing the items:
 
@@ -37,12 +37,13 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
 
 ## Content
 
+- [Introduction](#csv-firestore)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-   - [Interactive Mode](#interactive-mode)
-   - [Class](#class)
-- [Output]()
+  - [Interactive Mode](#interactive-mode)
+  - [NPM Package/Class](#npm-package/class)
+- [Output](#output)
 
 ## Requirements
 
@@ -76,7 +77,7 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
 ## Installation
 
 1. Clone this repository.  
-`git clone https://github.com/ciatph/csv-to-firestore.git`
+`git clone https://github.com/ciatph/csv-firestore.git`
 2. Install dependencies.  
 `npm install`
 3. Set up the environment variables.
@@ -89,6 +90,8 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
      - `FIREBASE_PRIVATE_KEY`
         - The `private_key` entry from the service account JSON file
         - Take note to make sure that the value starts and ends with a double-quote
+4. (OPTIONAL) **csv-firestore** is also available as an npm package on https://www.npmjs.com/package/csv-firestore.  
+   - `npm install --save csv-firebase`
 
 
 ## Usage
@@ -103,21 +106,25 @@ Run `npm start` to start the interactive session. Answer the questions appropria
    - *(Enter a target Firestore collection)*
    -  The specified Firestore collection will be created if it does not yet exist.
 - **Retain old data? [n/Y] (Press enter to proceed):**
-   -  **csv-to-firestore** DELETES a collection's documents by default before proceeding to upload data.
+   -  **csv-firestore** DELETES a collection's documents by default before proceeding to upload data.
    -  *(Press ENTER)* to accept the default behavior - delete the collection's documents uploading data.
    -  *(Type Y and press ENTER)* to retain all documents.
 
 Wait for the data upload to finish.
 
 
-### Class
+### NPM Package/Class
 
-Require the **CsvToFirestore** class from `./lib/classes/csvtofirestore` into a script. See example usage below:
+Require **csv-firestore** as an npm package: `require('csv-firestore')` if it's installed using **npm**, or  
+require the **CsvToFirestore** class from `./lib/classes/csvtofirestore` into a script if it's installed outside npm. See example usage below:
 
 ```
 // examples/example.js
 const path = require('path')
 const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
+
+// Require as an npm package if installed using npm
+// const CsvToFireStore = require('csv-firestore')
 
 const main = async () => {
   const handler = new CsvToFireStore(path.resolve(__dirname, 'example.csv'))
@@ -140,6 +147,8 @@ const main = async () => {
 
 main()
 ```
+
+Require as an npm package, if installed using `npm 
 
 ## Output
 
