@@ -86,7 +86,7 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
    - Create a `.env` file with reference to the `.env.example` file.
    - Encode your own Firebase project settings on the following variables:
      -  `FIREBASE_SERVICE_ACC`
-        -  The project's private key file contents, condensed into one line and minus alll whitespace characters.
+        -  The project's private key file contents, condensed into one line and minus all whitespace characters.
         -  The service account JSON file is generated from the Firebase project's **Project Settings** page, on  
            **Project Settings** -> **Service accounts** -> **Generate new private key**
      - `FIREBASE_PRIVATE_KEY`
@@ -110,7 +110,7 @@ Answer the questions appropriately when prompted:
    -  The specified Firestore collection will be created if it does not yet exist.
 - **Retain old data? [n/Y] (Press enter to proceed):**
    -  **csv-firestore** DELETES a collection's documents by default before proceeding to upload data.
-   -  *(Press ENTER)* to accept the default behavior - delete the collection's documents uploading data.
+   -  *(Press ENTER)* to accept the default behavior - delete the collection's documents before uploading data.
    -  *(Type Y and press ENTER)* to retain all documents.
 
 Wait for the data upload to finish.
