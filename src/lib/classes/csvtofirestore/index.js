@@ -5,7 +5,7 @@ const { uploadToCollection } = require('../firestore-data')
  * Read the contents of a CSV file and
  * upload the CSV contents to a Firestore collection.
  */
-class CsvToFirestore extends ParserCSV {
+class CsvToFireStore extends ParserCSV {
   /**
    * Full file path to the CSV file
    * @param {String} csvFilePath 
@@ -19,10 +19,14 @@ class CsvToFirestore extends ParserCSV {
    * The Firestore collection will be created if it does not yet exist.
    * @param {String} collectionName - Firestore collection name
    * @param {Boolean} overwrite - delete all documents in the collection before uploading data
+   * @param {Object[]} data - Array of objects (1 level only) to upload
    */
-  async firestoreUpload (collectionName, overwrite = true) {
-    await uploadToCollection(collectionName, this.data(), overwrite)
+  async firestoreUpload (collectionName, overwrite = true, data = []) {
+    const dataToUpload = (data && data.length > 0)
+      ? data
+      : this.data()
+    await uploadToCollection(collectionName, dataToUpload, overwrite)
   }
 }
 
-module.exports = CsvToFirestore
+module.exports = CsvToFireStore
