@@ -56,24 +56,24 @@ class ParserCSV {
    * @returns {Object[]} - Object[] array of CSV rows transformed into key-value pairs
    */
   readCSV () {
-    try {
-      // Check if file exists
-      fs.readFileSync(this.csv_filepath, 'utf-8')
-    } catch (err) {
-      throw new Error(err.message)
-    }
-
     return new Promise((resolve, reject) => {
-      fs.createReadStream(this.csv_filepath)
-        .pipe(csv.parse({ headers: true }))
-        .on('error', error => {
-          reject(error.message)
-        })
-        .on('data', row => this.read(row))
-        .on('end', rowCount => {
-          console.log(`processed ${rowCount} rows`)
-          resolve(this.csv_rows)
-        })
+      fs.exists(this.csv_filepath, (exist) => {
+        if (exist) {
+          fs.createReadStream(this.csv_filepath)
+            .pipe(csv.parse({ headers: true }))
+            .on('error', error => {
+              reject(error.message)
+            })
+            .on('data', row => this.read(row))
+            .on('end', rowCount => {
+              console.log(`processed ${rowCount} rows`)
+              this.end()
+              resolve(this.csv_rows)
+            })
+        } else {
+          reject(new Error('File not found.'))
+        }
+      })
     })
   }
 
@@ -81,7 +81,14 @@ class ParserCSV {
    * Get the read CSV data
    * @returns {Object[]} - Object[] array of CSV rows transformed into key-value pairs
    */
-  data = () => this.csv_rows 
+  data = () => this.csv_rows
+
+  /**
+   * end function after finishing reading the CSV file
+   */
+  end () {
+    console.log('Ending CSV reading.')
+  }
 }
 
 module.exports = ParserCSV
