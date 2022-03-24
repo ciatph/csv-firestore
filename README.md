@@ -43,6 +43,7 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
 - [Usage](#usage)
   - [Interactive Mode](#interactive-mode)
   - [NPM Package/Class](#npm-package/class)
+  - [Customizing the CSV Output](#customizing-the-csv-output)
 - [Output](#output)
 
 ## Requirements
@@ -78,20 +79,18 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
 
 1. Clone this repository, or install using npm (see step #2).  
 `git clone https://github.com/ciatph/csv-firestore.git`
-2. **csv-firestore** is also available as an npm package on https://www.npmjs.com/package/csv-firestore. Install using:  
-   - `npm install --save csv-firebase`
+2. **csv-firestore** is also available as an [npm package](https://www.npmjs.com/package/csv-firestore). Install using:  
+`npm install --save csv-firestore`
 3. Install dependencies.  
 `npm install`
-4. Set up the environment variables.
-   - Create a `.env` file with reference to the `.env.example` file.
-   - Encode your own Firebase project settings on the following variables:
-     -  `FIREBASE_SERVICE_ACC`
-        -  The project's private key file contents, condensed into one line and minus all whitespace characters.
-        -  The service account JSON file is generated from the Firebase project's **Project Settings** page, on  
-           **Project Settings** -> **Service accounts** -> **Generate new private key**
-     - `FIREBASE_PRIVATE_KEY`
-        - The `private_key` entry from the service account JSON file
-        - Take note to make sure that the value starts and ends with a double-quote
+4. Set up the environment variables. Create a `.env` file with reference to the `.env.example` file. Encode your own Firebase project settings on the following variables:
+   -  `FIREBASE_SERVICE_ACC`
+      -  The project's private key file contents, condensed into one line and minus all whitespace characters.
+      -  The service account JSON file is generated from the Firebase project's **Project Settings** page, on  
+        **Project Settings** -> **Service accounts** -> **Generate new private key**
+   - `FIREBASE_PRIVATE_KEY`
+      - The `private_key` entry from the service account JSON file
+      - Take note to make sure that the value starts and ends with a double-quote
 
 
 ## Usage
@@ -119,7 +118,7 @@ Wait for the data upload to finish.
 ### NPM Package/Class
 
 - Require **csv-firestore** as an npm package: `require('csv-firestore')` if it's installed using **npm**, or  
-- Require the **CsvToFirestore** class from `./lib/classes/csvtofirestore` into a script if it's installed outside npm. See example usage below:
+- Require the **CsvToFireStore** class from `./lib/classes/csvtofirestore`` into a script if it's installed outside npm. See example usage below:
 
 ```
 // examples/example.js
@@ -129,6 +128,8 @@ const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
 // Require as an npm package if installed using npm
 // const CsvToFireStore = require('csv-firestore')
 
+// Basic CsvToFireStore usage.
+// Read CSV file as is and upload to a Firestore collection.
 const main = async () => {
   const handler = new CsvToFireStore(path.resolve(__dirname, 'example.csv'))
 
@@ -150,6 +151,105 @@ const main = async () => {
 
 main()
 ```
+
+### Customizing the CSV Output
+
+**csv-firestore** reads all CSV content as is and uploads it to Firestore. The following examples show how to customize **csv-firestore**'s CSV content by overriding it's (extends) **ParserCSV** class.
+
+#### Override CsvToFireStore's CSV content Directly
+
+```
+// examples/example-parser.js
+const path = require('path')
+const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
+
+// Require as an npm package if installed using npm
+// const { CsvToFireStore } = require('csv-firestore')
+
+const main = async () => {
+   const handler = new CsvToFireStore(path.resolve(__dirname, 'example.csv'))
+
+   // Directly override CsvToFireStore's ParserCSV read() method
+   // and csv_rows[] {Object[]} array to include only the "name" column 
+   // during Firestore upload
+   handler.read = (row) => {
+      handler.csv_rows.push({
+         name: row.name
+      })
+   }
+
+   try {
+      await handler.readCSV()
+   } catch (err) {
+      console.error(err.message)
+   }
+
+   try {
+      await handler.firestoreUpload('my_firestore_collection')
+      console.log('Data uploaded')
+   } catch (err) {
+      console.error(err.message)
+   }
+}
+
+main()
+```
+   
+#### Write Formatted CSV Content Into a New CSV File
+
+This method writes formatted CSV content to a new CSV file that can read by **CsvToFireStore** descibed on the [Interactive Mode](#interactive-mode) or [NPM Package/Class](#npm-package/class) usage methods.
+
+```
+// examples/example-writer.js
+const path = require('path')
+const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
+
+// Require as an npm package if installed using npm
+// const { CsvToFireStore } = require('csv-firestore')
+
+// MyCustomHandler extends CsvToFireStore and overrides its
+// ParserCSV read() and end() methods
+// to customize CSV output formatting other than CsvToFireStore's CSV read as is
+class MyCustomHandler extends CsvToFireStore {
+  constructor(csvFilePath) {
+    super(csvFilePath)
+    this.character_names = []
+  }
+
+  read (row) {
+    // Read only the "name" column from the CSV
+    this.character_names.push({
+      name: row.name
+    })
+  }
+
+  end () {
+    console.log('end')
+    console.log(this.character_names)
+  }
+}
+
+// This example reads the sample CSV file, extracts its "name" column
+// and writes it to a new CSV file "character_names.csv"
+const main = async () => {
+  const parser = new MyCustomHandler(path.resolve(__dirname, 'example.csv'))
+
+  try {
+    await parser.readCSV()
+    parser.write(parser.character_names, 'character_names.csv')
+  } catch (err) {
+    console.error(err.message)
+  }
+}
+
+main()
+```
+
+> **NOTE:** We can also extend the **ParserCSV** class instead of **CsvToFireStore** for reading and writing CSV files. Note however that **ParserCSV** does not include methods for uploading data to Firestore.
+
+- Require **csv-firestore**'s **ParserCSV** as an npm package:  
+`const { ParserCSV } = require('csv-firestore')` if it's installed using **npm**, or  
+- Require the **ParserCSV** class from `./lib/classes/parsercsv` into a script if it's installed outside npm. See example usage below:
 
 
 ## Output

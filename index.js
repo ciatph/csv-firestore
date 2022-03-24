@@ -1,10 +1,10 @@
 require('dotenv').config()
+const ParserCSV = require('./src/lib/classes/parser')
+const FirestoreData = require('./src/lib/classes/firestore-data')
+const CsvToFireStore = require('./src/lib/classes/CsvToFireStore')
 
-if (!process.env.FIREBASE_SERVICE_ACC || !process.env.FIREBASE_PRIVATE_KEY) {
-  console.log('FIREBASE_SERVICE_ACC or FIREBASE_PRIVATE_KEY is missing.')
-  process.exit(1)
+module.exports = {
+  CsvToFireStore,
+  ParserCSV,
+  FirestoreData
 }
-
-const CsvToFirestore = require('./src/lib/classes/csvtofirestore')
-
-module.exports = CsvToFirestore

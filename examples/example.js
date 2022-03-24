@@ -1,6 +1,11 @@
 const path = require('path')
-const CsvToFireStore = require('../index')
+const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
 
+// Require as an npm package if installed using npm
+// const CsvToFireStore = require('csv-firestore')
+
+// Basic CsvToFireStore usage.
+// Read CSV file as is and upload to a Firestore collection.
 const main = async () => {
   const handler = new CsvToFireStore(path.resolve(__dirname, 'example.csv'))
 

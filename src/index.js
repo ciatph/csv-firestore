@@ -1,4 +1,4 @@
-const CsvToFirestore = require('./lib/classes/csvtofirestore')
+const CsvToFireStore = require('./lib/classes/CsvToFireStore')
 const prompt = require('./lib/utils/prompt')
 const header = require('./lib/utils/header')
 
@@ -16,7 +16,7 @@ const main = async () => {
     if (csvfile) {
       try {
         console.log('Reading the CSV file...')
-        csv = new CsvToFirestore(csvfile)
+        csv = new CsvToFireStore(csvfile)
         await csv.readCSV()
       } catch (err) {
         console.log(`Error reading CSV: ${err.message}`)
