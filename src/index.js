@@ -1,4 +1,4 @@
-const CsvToFireStore = require('./lib/classes/CsvToFireStore')
+const CsvToFireStore = require('./lib/classes/csvtofirestore')
 const prompt = require('./lib/utils/prompt')
 const header = require('./lib/utils/header')
 
