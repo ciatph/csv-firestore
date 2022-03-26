@@ -1,6 +1,6 @@
 {
   "name": "csv-firestore",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Uploads CSV rows as documents to Firestore collections.",
   "main": "index.js",
   "directories": {
