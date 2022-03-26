@@ -37,6 +37,9 @@ const main = async () => {
   } catch (err) {
     console.error(err.message)
   }
+
+  await parser.firestoreUpload('testing', true, parser.character_nams)
+  console.log('done')
 }
 
 main()

@@ -126,7 +126,7 @@ const path = require('path')
 const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
 
 // Require as an npm package if installed using npm
-// const CsvToFireStore = require('csv-firestore')
+// const { CsvToFireStore } = require('csv-firestore')
 
 // Basic CsvToFireStore usage.
 // Read CSV file as is and upload to a Firestore collection.
@@ -237,6 +237,13 @@ const main = async () => {
   try {
     await parser.readCSV()
     parser.write(parser.character_names, 'character_names.csv')
+  } catch (err) {
+    console.error(err.message)
+  }
+
+  // Upload the custom CSV content to Firestore
+  try {
+    parser.firestoreUpload('my_firestore_collection', true, parser.character_names)
   } catch (err) {
     console.error(err.message)
   }
