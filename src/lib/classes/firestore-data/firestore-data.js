@@ -1,13 +1,25 @@
-const { db } = require('./db')
+const { db, admin } = require('./db')
 
 /**
  * A wrapper around firebase-admin for bulk delete and write data operations to specified Firestore collections.
  * Uses firebase-admin v10.0.2.
- * Requires a privileged environment to run while using the project's 
+ * Requires a privileged environment to run while using the project's
  *    service account JSON credentials (see db.js)
  */
 class FirestoreData {
-  constructor () {}  
+  /** Firestore DB */
+  #db
+
+  /** Firebase admin */
+  #admin
+
+  /**
+   * Initialize FirestoreData with Firestore DB and Firebase admin
+   */
+  constructor () {
+    this.#db = db
+    this.#admin = admin
+  }
 
   /**
    * Delete a firestore collection including all its documents
@@ -22,7 +34,7 @@ class FirestoreData {
       this.deleteQueryBatch(query, resolve)
     })
   }
-  
+
   /**
    * Delete a firestore document by batch
    * @param query - firestore collection query object
@@ -31,21 +43,21 @@ class FirestoreData {
   async deleteQueryBatch (query, resolve) {
     const snapshot = await query.get()
     const batchSize = snapshot.size
-  
+
     // No documents left
     if (batchSize === 0) {
       resolve()
       return
     }
-  
+
     // Delete documents in a batch
     const batch = db.batch()
     snapshot.docs.forEach((doc) => {
       batch.delete(doc.ref)
     })
-  
+
     await batch.commit()
-  
+
     // Recurse on the next process tick, to avoid
     // exploding the stack.
     process.nextTick(() => {
@@ -70,7 +82,7 @@ class FirestoreData {
       const docRef = db.collection(collectionName).doc()
       batch.set(docRef, item)
     })
-  
+
     await batch.commit()
   }
 
@@ -90,6 +102,20 @@ class FirestoreData {
     } catch (err) {
       throw new Error(err.message)
     }
+  }
+
+  /**
+   * Return the private Firestore DB
+   */
+  get db () {
+    return this.#db
+  }
+
+  /**
+   * Return the private Firbase admin
+   */
+  get admin () {
+    return this.#admin
   }
 }
 
