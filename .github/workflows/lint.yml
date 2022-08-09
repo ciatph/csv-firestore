@@ -9,16 +9,14 @@ jobs:
   lint-server:
     name: Lint App
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v1
       - name: Use NodeJS ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
       - name: Install Dependencies and lint
         run: |
           npm install
