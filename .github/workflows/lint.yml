@@ -1,0 +1,25 @@
+name: Lint Files
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  lint-server:
+    name: Lint App
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v1
+      - name: Use NodeJS ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies and lint
+        run: |
+          npm install
+          npm run lint
