@@ -11,6 +11,7 @@
     "example": "node examples/example.js",
     "example:parser": "node examples/example-parser.js",
     "example:writer": "node examples/example-writer.js",
+    "example:firestore": "node examples/example-firestore.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
   },

@@ -1,4 +1,6 @@
 require('dotenv').config()
+const { initializeApp } = require('firebase-admin/app')
+const { getFirestore } = require('firebase-admin/firestore')
 const admin = require('firebase-admin')
 let db
 
@@ -11,12 +13,12 @@ if (process.env.FIREBASE_SERVICE_ACC === undefined || process.env.FIREBASE_PRIVA
   // Add double-quotes around the "private_key" JSON
   serviceAccount.private_key = process.env.FIREBASE_PRIVATE_KEY
 
-  admin.initializeApp({
+  initializeApp({
     credential: admin.credential.cert(serviceAccount)
     // databaseURL: process.env.FIREBASE_DB_URL
   })
 
-  db = admin.firestore()
+  db = getFirestore()
 }
 
 module.exports = {
