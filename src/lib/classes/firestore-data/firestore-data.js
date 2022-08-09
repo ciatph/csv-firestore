@@ -1,4 +1,4 @@
-const { db } = require('./db')
+const { db, admin } = require('./db')
 
 /**
  * A wrapper around firebase-admin for bulk delete and write data operations to specified Firestore collections.
@@ -7,6 +7,20 @@ const { db } = require('./db')
  *    service account JSON credentials (see db.js)
  */
 class FirestoreData {
+  /** Firestore DB */
+  #db
+
+  /** Firebase admin */
+  #admin
+
+  /**
+   * Initialize FirestoreData with Firestore DB and Firebase admin
+   */
+  constructor () {
+    this.#db = db
+    this.#admin = admin
+  }
+
   /**
    * Delete a firestore collection including all its documents
    * @param {String} collectionName - firestore collection name
@@ -88,6 +102,20 @@ class FirestoreData {
     } catch (err) {
       throw new Error(err.message)
     }
+  }
+
+  /**
+   * Return the private Firestore DB
+   */
+  get db () {
+    return this.#db
+  }
+
+  /**
+   * Return the private Firbase admin
+   */
+  get admin () {
+    return this.#admin
   }
 }
 
