@@ -48,8 +48,10 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
 
 ## Requirements
 
+The following dependencies are used for this project. Feel free to use other dependency versions as needed.
+
 1. Windows, Mac or Linux OS
-2. NodeJS version 14.18.3 or higher
+2. NodeJS version 16.14.2
 3. Access to a Firebase Project [[link]](https://firebase.google.com/)
    - Pricing Plan: Spark plan or higher
    - Service account credentials JSON file
@@ -71,7 +73,7 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
 
 (See package.json for more information.)
 
-1. [firebase-admin](https://www.npmjs.com/package/firebase-admin) v10.0.2
+1. [firebase-admin](https://www.npmjs.com/package/firebase-admin) v11.0.1
 2. [fast-csv](https://www.npmjs.com/package/fast-csv) v4.3.6
 
 

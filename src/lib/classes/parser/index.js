@@ -7,7 +7,7 @@ const csv = require('fast-csv')
 class ParserCSV {
   /**
    * Initialize ParserCSV
-   * @param {String} csvFilePath 
+   * @param {String} csvFilePath
    */
   constructor (csvFilePath) {
     // Array of Object[] key-value pairs to contain each CSV row
@@ -30,7 +30,7 @@ class ParserCSV {
     collection.forEach((item, index) => {
       csvStream.write(item)
     })
-    
+
     csvStream.end()
   }
 
@@ -57,8 +57,12 @@ class ParserCSV {
    */
   readCSV () {
     return new Promise((resolve, reject) => {
-      fs.exists(this.csv_filepath, (exist) => {
-        if (exist) {
+      fs.stat(this.csv_filepath, (err, stats) => {
+        if (err) {
+          reject(new Error(err.message))
+        }
+
+        if (stats) {
           fs.createReadStream(this.csv_filepath)
             .pipe(csv.parse({ headers: true }))
             .on('error', error => {
@@ -70,8 +74,6 @@ class ParserCSV {
               this.end()
               resolve(this.csv_rows)
             })
-        } else {
-          reject(new Error('File not found.'))
         }
       })
     })
