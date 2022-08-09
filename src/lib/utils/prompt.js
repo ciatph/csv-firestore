@@ -5,7 +5,7 @@ const rl = readline.createInterface({
   output: process.stdout
 })
 
-module.exports = async = (text) => new Promise(resolve => {
+module.exports = (text) => new Promise(resolve => {
   rl.question(text, (input) => resolve(input))
 })
 
