@@ -11,7 +11,8 @@ if (process.env.FIREBASE_SERVICE_ACC === undefined || process.env.FIREBASE_PRIVA
   const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACC)
 
   // Add double-quotes around the "private_key" JSON
-  serviceAccount.private_key = process.env.FIREBASE_PRIVATE_KEY
+  // serviceAccount.private_key = process.env.FIREBASE_PRIVATE_KEY
+  serviceAccount.private_key = process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')
 
   initializeApp({
     credential: admin.credential.cert(serviceAccount)
