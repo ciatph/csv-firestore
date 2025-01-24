@@ -3,3 +3,7 @@ node_modules/
 .vscode
 *.csv
 *.zip
+*.tgz
+
+LICENSE
+CONTRIBUTING.md
