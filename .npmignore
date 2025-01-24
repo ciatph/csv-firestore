@@ -1,5 +1,15 @@
 node_modules/
+.github/
 .env
 .vscode
 *.csv
 *.zip
+*.tgz
+
+LICENSE
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+
+.env.example
+.eslintrc.js

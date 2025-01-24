@@ -19,7 +19,8 @@ module.exports = {
     'indent': ['error', 2],
     'linebreak-style': ['error', 'unix'],
     'quotes': ['error', 'single'],
-    'semi': ['error', 'never']
+    'semi': ['error', 'never'],
+    'eol-last': ['error', 'always']
     // 'no-console': ['error', { 'allow': ['error'] }]
     // 'no-unused-vars': 'off',
     // 'no-undef': 'off'
