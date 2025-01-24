@@ -46,6 +46,10 @@ Will be stored in a Firestore collection `playable_characters`, where each CSV r
   - [Customizing the CSV Output](#customizing-the-csv-output)
 - [Output](#output)
 
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](https://github.com/ciatph/csv-firestore/blob/dev/CONTRIBUTING.md) for guidelines.
+
 ## Requirements
 
 The following dependencies are used for this project. Feel free to use other dependency versions as needed.
@@ -55,7 +59,7 @@ The following dependencies are used for this project. Feel free to use other dep
 3. Access to a Firebase Project [[link]](https://firebase.google.com/)
    - Pricing Plan: Spark plan or higher
    - Service account credentials JSON file
-   - Firestore: configured using the default Test mode Rules, or a custom rules set. See below for reference to a Firestore Rules that blocks all writes and allows public reads.  
+   - Firestore: configured using the default Test mode Rules, or a custom rules set. See below for reference to a Firestore Rules that blocks all writes and allows public reads.
      ```
      rules_version = '2';
      service cloud.firestore {
@@ -79,16 +83,16 @@ The following dependencies are used for this project. Feel free to use other dep
 
 ## Installation
 
-1. Clone this repository, or install using npm (see step #2).  
+1. Clone this repository, or install using npm (see step #2).
 `git clone https://github.com/ciatph/csv-firestore.git`
-2. **csv-firestore** is also available as an [npm package](https://www.npmjs.com/package/csv-firestore). Install using:  
+2. **csv-firestore** is also available as an [npm package](https://www.npmjs.com/package/csv-firestore). Install using:
 `npm install --save csv-firestore`
-3. Install dependencies.  
+3. Install dependencies.
 `npm install`
 4. Set up the environment variables. Create a `.env` file with reference to the `.env.example` file. Encode your own Firebase project settings on the following variables:
    -  `FIREBASE_SERVICE_ACC`
       -  The project's private key file contents, condensed into one line and minus all whitespace characters.
-      -  The service account JSON file is generated from the Firebase project's **Project Settings** page, on  
+      -  The service account JSON file is generated from the Firebase project's **Project Settings** page, on
         **Project Settings** -> **Service accounts** -> **Generate new private key**
    - `FIREBASE_PRIVATE_KEY`
       - The `private_key` entry from the service account JSON file
@@ -104,7 +108,7 @@ The following dependencies are used for this project. Feel free to use other dep
 
 Answer the questions appropriately when prompted:
 
-- **Enter the full CSV file path:** 
+- **Enter the full CSV file path:**
    - *(Enter the full file path to the input CSV file i.e., D:/MyFiles/users.csv)*
 - **Enter Firestore collection name:**
    - *(Enter a target Firestore collection)*
@@ -119,10 +123,10 @@ Wait for the data upload to finish.
 
 ### NPM Package/Class
 
-- Require **csv-firestore** as an npm package: `require('csv-firestore')` if it's installed using **npm**, or  
+- Require **csv-firestore** as an npm package: `require('csv-firestore')` if it's installed using **npm**, or
 - Require the **CsvToFireStore** class from `./lib/classes/csvtofirestore`` into a script if it's installed outside npm. See example usage below:
 
-```
+```javascript
 // examples/example.js
 const path = require('path')
 const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
@@ -160,7 +164,7 @@ main()
 
 #### Override CsvToFireStore's CSV content Directly
 
-```
+```javascript
 // examples/example-parser.js
 const path = require('path')
 const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
@@ -172,7 +176,7 @@ const main = async () => {
    const handler = new CsvToFireStore(path.resolve(__dirname, 'example.csv'))
 
    // Directly override CsvToFireStore's ParserCSV read() method
-   // and csv_rows[] {Object[]} array to include only the "name" column 
+   // and csv_rows[] {Object[]} array to include only the "name" column
    // during Firestore upload
    handler.read = (row) => {
       handler.csv_rows.push({
@@ -196,12 +200,12 @@ const main = async () => {
 
 main()
 ```
-   
+
 #### Write Formatted CSV Content Into a New CSV File
 
 This method writes formatted CSV content to a new CSV file that can read by **CsvToFireStore** descibed on the [Interactive Mode](#interactive-mode) or [NPM Package/Class](#npm-package/class) usage methods.
 
-```
+```javascript
 // examples/example-writer.js
 const path = require('path')
 const CsvToFireStore = require('../src/lib/classes/csvtofirestore')
@@ -256,8 +260,8 @@ main()
 
 > **NOTE:** We can also extend the **ParserCSV** class instead of **CsvToFireStore** for reading and writing CSV files. Note however that **ParserCSV** does not include methods for uploading data to Firestore.
 
-- Require **csv-firestore**'s **ParserCSV** as an npm package:  
-`const { ParserCSV } = require('csv-firestore')` if it's installed using **npm**, or  
+- Require **csv-firestore**'s **ParserCSV** as an npm package:
+`const { ParserCSV } = require('csv-firestore')` if it's installed using **npm**, or
 - Require the **ParserCSV** class from `./lib/classes/parsercsv` into a script if it's installed outside npm. See example usage below:
 
 
@@ -265,5 +269,5 @@ main()
 
 The uploaded data will be available on Firestore. It will be accessible using various [Firebase clients](https://firebase.google.com/docs/firestore/manage-data/add-data) for web, (JS) Python, PHP, Go, and many more.
 
-It can also be accessed from Firestore's REST API following the pattern below if public reads are allowed on the Firestore Rules. 
+It can also be accessed from Firestore's REST API following the pattern below if public reads are allowed on the Firestore Rules.
 `https://firestore.googleapis.com/v1/projects/<PROJECT_ID_HERE>/databases/(default)/documents/<COLLECTION_NAME>?&key=<FIREBASE_CONFIG_API_KEY>`
