@@ -1,4 +1,5 @@
 node_modules/
+.github/
 .env
 .vscode
 *.csv
@@ -7,3 +8,8 @@ node_modules/
 
 LICENSE
 CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+
+.env.example
+.eslintrc.js
