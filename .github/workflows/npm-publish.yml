@@ -8,13 +8,22 @@ on:
 
 jobs:
   publish-npm:
+    if: github.event.release.target_commitish == 'master'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout the repository
+        uses: actions/checkout@v3
         with:
-          node-version: 16
+          ref: ${{ github.event.release.tag_name }}
+
+      # Use Node v20 (latest than v16) when publishing with provenance
+      - name: Use NodeJS v20.15.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.15.0
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
+
+      - name: Publish package
+        run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
