@@ -3,6 +3,10 @@
   "version": "1.1.0",
   "description": "Uploads CSV rows as documents to Firestore collections.",
   "main": "index.js",
+  "engines": {
+    "node": ">=16.14.2",
+    "npm": ">=8.5.0"
+  },
   "directories": {
     "example": "examples"
   },
