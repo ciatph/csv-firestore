@@ -38,13 +38,13 @@
   },
   "homepage": "https://github.com/ciatph/csv-firestore#readme",
   "dependencies": {
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.4.7",
     "fast-csv": "^4.3.6",
     "firebase-admin": "^13.1.0"
   },
   "devDependencies": {
     "eslint": "^8.21.0",
-    "eslint-config-standard": "^17.0.0",
+    "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0"
