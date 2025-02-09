@@ -1,11 +1,10 @@
 {
   "name": "csv-firestore",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Uploads CSV rows as documents to Firestore collections.",
   "main": "index.js",
   "engines": {
-    "node": ">=16.14.2",
-    "npm": ">=8.5.0"
+    "node": ">=18"
   },
   "directories": {
     "example": "examples"
@@ -38,13 +37,13 @@
   },
   "homepage": "https://github.com/ciatph/csv-firestore#readme",
   "dependencies": {
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.4.7",
     "fast-csv": "^4.3.6",
-    "firebase-admin": "^11.0.1"
+    "firebase-admin": "^13.1.0"
   },
   "devDependencies": {
     "eslint": "^8.21.0",
-    "eslint-config-standard": "^17.0.0",
+    "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0"
