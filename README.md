@@ -55,7 +55,12 @@ We welcome contributions! Please see [CONTRIBUTING.md](https://github.com/ciatph
 The following dependencies are used for this project. Feel free to use other dependency versions as needed.
 
 1. Windows, Mac or Linux OS
-2. NodeJS version 16.14.2
+2. NodeJS LTS version 18 or higher
+   ```
+   Recommended:
+   node: >= 18.20.6
+   npm: >= 10.8.2
+   ```
 3. Access to a Firebase Project [[link]](https://firebase.google.com/)
    - Pricing Plan: Spark plan or higher
    - Service account credentials JSON file
@@ -77,9 +82,11 @@ The following dependencies are used for this project. Feel free to use other dep
 
 (See package.json for more information.)
 
-1. [firebase-admin](https://www.npmjs.com/package/firebase-admin) v11.0.1
+1. [firebase-admin](https://www.npmjs.com/package/firebase-admin) v13.1.0
 2. [fast-csv](https://www.npmjs.com/package/fast-csv) v4.3.6
 
+> [!IMPORTANT]
+> **firebase-admin v13.1.0** requires at least **NodeJS v18+** to run.
 
 ## Installation
 
