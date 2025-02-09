@@ -4,8 +4,7 @@
   "description": "Uploads CSV rows as documents to Firestore collections.",
   "main": "index.js",
   "engines": {
-    "node": ">=18.20.6",
-    "npm": ">=10.8.2"
+    "node": ">=18"
   },
   "directories": {
     "example": "examples"
