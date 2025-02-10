@@ -1,23 +1,37 @@
 const ParserCSV = require('../parser')
-const { uploadToCollection } = require('../firestore-data')
+const FirestoreData = require('../firestore-data/firestore-data')
 
 /**
- * Read the contents of a CSV file and
- * upload the CSV contents to a Firestore collection.
+ * Class that reads the contents of a CSV file and
+ * uploads the CSV contents to a Firestore collection.
  */
 class CsvToFireStore extends ParserCSV {
   /**
-   * Upload the internal CSV file contents to a Firestore collection.
-   * The Firestore collection will be created if it does not yet exist.
+   * `FirestoreData` class instance containing methods for managing Firestore data.
+   * It also contains internal Firebase `admin` and `firestore` Singletons.
+   * @type {object}
+   */
+  #firestore
+
+  constructor (csvFilePath) {
+    super(csvFilePath)
+    this.#firestore = new FirestoreData()
+  }
+
+  /**
+   * Uploads the internal CSV file contents, or external data that resembles `ParserCSV`'s
+   * JSON Object[] array structure to a Firestore collection, creating the Firestore
+   * collection if it does not yet exist.
    * @param {String} collectionName - Firestore collection name
-   * @param {Boolean} overwrite - delete all documents in the collection before uploading data
+   * @param {Boolean} overwrite - Flag to delete all documents in the collection before uploading data
    * @param {Object[]} data - Array of objects (1 level only) to upload
    */
   async firestoreUpload (collectionName, overwrite = true, data = []) {
     const dataToUpload = (data && data.length > 0)
       ? data
       : this.data()
-    await uploadToCollection(collectionName, dataToUpload, overwrite)
+
+    await this.#firestore.uploadToCollection(collectionName, dataToUpload, overwrite)
   }
 }
 
