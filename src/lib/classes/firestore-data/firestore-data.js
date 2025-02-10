@@ -1,32 +1,19 @@
-const { db, admin } = require('./db')
+const FirebaseDB = require('../firebasedb')
 
 /**
  * A wrapper around firebase-admin for bulk delete and write data operations to specified Firestore collections.
- * Uses firebase-admin v10.0.2.
- * Requires a privileged environment to run while using the project's
- *    service account JSON credentials (see db.js)
+ * Initializes and keeps a `firestore` and `admin` Singleton reference from firebase-admin for data access.
+ * Uses firebase-admin v13.1.0.
+ * Requires a privileged environment to run using the project's
+ *    service account JSON credentials (see .env file)
  */
-class FirestoreData {
-  /** Firestore DB */
-  #db
-
-  /** Firebase admin */
-  #admin
-
-  /**
-   * Initialize FirestoreData with Firestore DB and Firebase admin
-   */
-  constructor () {
-    this.#db = db
-    this.#admin = admin
-  }
-
+class FirestoreData extends FirebaseDB {
   /**
    * Delete a firestore collection including all its documents
    * @param {String} collectionName - firestore collection name
    */
   async deleteCollection (collectionName) {
-    const collectionRef = db.collection(collectionName)
+    const collectionRef = this.db.collection(collectionName)
     const query = collectionRef.offset(0)
     // const query = collectionRef.orderBy(fieldName)
 
@@ -51,7 +38,7 @@ class FirestoreData {
     }
 
     // Delete documents in a batch
-    const batch = db.batch()
+    const batch = this.db.batch()
     snapshot.docs.forEach((doc) => {
       batch.delete(doc.ref)
     })
@@ -72,14 +59,14 @@ class FirestoreData {
    * @param {Boolean} overwrite - delete all documents in the collection before uploading data
    */
   async uploadToCollection (collectionName, data, overwrite = true) {
-    const batch = db.batch()
+    const batch = this.db.batch()
 
     if (overwrite) {
       await this.deleteCollection(collectionName)
     }
 
     data.forEach((item, index) => {
-      const docRef = db.collection(collectionName).doc()
+      const docRef = this.db.collection(collectionName).doc()
       batch.set(docRef, item)
     })
 
@@ -93,7 +80,7 @@ class FirestoreData {
    * @returns {Boolean} true|false
    */
   async fieldNameExists (collectionName, fieldName) {
-    const collectionRef = db.collection(collectionName)
+    const collectionRef = this.db.collection(collectionName)
     const query = collectionRef.orderBy(fieldName).limit(1)
 
     try {
@@ -102,20 +89,6 @@ class FirestoreData {
     } catch (err) {
       throw new Error(err.message)
     }
-  }
-
-  /**
-   * Return the private Firestore DB
-   */
-  get db () {
-    return this.#db
-  }
-
-  /**
-   * Return the private Firbase admin
-   */
-  get admin () {
-    return this.#admin
   }
 }
 

@@ -8,7 +8,7 @@ const main = async () => {
   const handler = new CsvToFireStore(path.resolve(__dirname, 'example.csv'))
 
    // Directly override CsvToFireStore's ParserCSV read() method
-   // and csv_rows[] {Object[]} array to include only the "name" column 
+   // and csv_rows[] {Object[]} array to include only the "name" column
    // during Firestore upload
   handler.read = (row) => {
     handler.csv_rows.push({
