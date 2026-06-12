@@ -58,8 +58,8 @@ The following dependencies are used for this project. Feel free to use other dep
 2. NodeJS LTS version 18 or higher
    ```
    Recommended:
-   node: >= 18.20.6
-   npm: >= 10.8.2
+   node: >= 24.11.0
+   npm: >= 11.6.1
    ```
 3. Access to a Firebase Project [[link]](https://firebase.google.com/)
    - Pricing Plan: Spark plan or higher
