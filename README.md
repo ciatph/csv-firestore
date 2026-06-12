@@ -82,11 +82,11 @@ The following dependencies are used for this project. Feel free to use other dep
 
 (See package.json for more information.)
 
-1. [firebase-admin](https://www.npmjs.com/package/firebase-admin) v13.1.0
-2. [fast-csv](https://www.npmjs.com/package/fast-csv) v4.3.6
+1. [firebase-admin](https://www.npmjs.com/package/firebase-admin) v14.0.0
+2. [fast-csv](https://www.npmjs.com/package/fast-csv) v5.0.7
 
 > [!IMPORTANT]
-> **firebase-admin v13.1.0** requires at least **NodeJS v18+** to run.
+> **firebase-admin v14.0.0** requires at least **NodeJS v24+** to run.
 
 ## Installation
 
