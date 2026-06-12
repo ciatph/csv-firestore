@@ -15,18 +15,16 @@ jobs:
       id-token: write
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.release.tag_name }}
 
       # Use Node v20 (latest than v16) when publishing with provenance
-      - name: Use NodeJS v20.15.0
-        uses: actions/setup-node@v3
+      - name: Use NodeJS v24.11.0
+        uses: actions/setup-node@v6
         with:
-          node-version: 20.15.0
+          node-version: 24.11.0
           registry-url: https://registry.npmjs.org/
 
       - name: Publish package
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
