@@ -15,7 +15,7 @@ const main = async () => {
       .set({
         id,
         title: 'My Favorite Book',
-        date_created: Firestore.admin.firestore.Timestamp.now()
+        date_created: Firestore.timestamp()
       })
     console.log(logs)
   } catch (err) {

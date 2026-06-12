@@ -27,7 +27,7 @@ class ParserCSV {
     const csvStream = csv.format({ headers: true })
     csvStream.pipe(csvOut)
 
-    collection.forEach((item, index) => {
+    collection.forEach((item) => {
       csvStream.write(item)
     })
 

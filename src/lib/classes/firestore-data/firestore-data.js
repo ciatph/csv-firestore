@@ -17,7 +17,7 @@ class FirestoreData extends FirebaseDB {
     const query = collectionRef.offset(0)
     // const query = collectionRef.orderBy(fieldName)
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.deleteQueryBatch(query, resolve)
     })
   }
@@ -65,7 +65,7 @@ class FirestoreData extends FirebaseDB {
       await this.deleteCollection(collectionName)
     }
 
-    data.forEach((item, index) => {
+    data.forEach((item) => {
       const docRef = this.db.collection(collectionName).doc()
       batch.set(docRef, item)
     })
@@ -87,7 +87,7 @@ class FirestoreData extends FirebaseDB {
       const snapshot = await query.get()
       return (snapshot.docs.length === 1)
     } catch (err) {
-      throw new Error(err.message)
+      throw new Error(err.message, { cause: err })
     }
   }
 }
