@@ -55,7 +55,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](https://github.com/ciatph
 The following dependencies are used for this project. Feel free to use other dependency versions as needed.
 
 1. Windows, Mac or Linux OS
-2. NodeJS LTS version 18 or higher
+2. NodeJS LTS version 24 or higher
    ```
    Recommended:
    node: >= 24.11.0
